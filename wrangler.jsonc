@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "my-school",
+  "compatibility_date": "2026-03-12",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./dist"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "PROGRESS",
+      // TODO: Run `npx wrangler kv namespace create PROGRESS` and paste the id here
+      "id": "TODO"
+    }
+  ]
+}
