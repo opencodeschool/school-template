@@ -1,12 +1,14 @@
 # school-template
 
-A template for building interactive, agent-driven schools on any topic. Students enroll on a website, then learn inside their AI agent of choice. Built with Astro 6, Cloudflare Workers, and KV.
+A template for building interactive, agent-driven schools on any topic.
+
+Students enroll for free with one click, get a unique student ID, paste a custom prompt into their AI agent of choice, and embark on interactive and individually-tailored learning journeys. Works with OpenCode, Claude Code, Codex, Gemini, and most other AI agent harnesses.
 
 Based on the architecture of [OpenCode School](https://opencode.school).
 
 ## Quick start
 
-Copy and paste this prompt into your agentic coding tool of choice, like OpenCode, Claude Code, Codex, or Gemini CLI:
+To get started creating your own school, copy and paste this prompt into your agentic coding tool of choice:
 
 > Let's create a new school!
 >
@@ -18,48 +20,16 @@ Not using a coding agent yet? Check out [OpenCode School](https://opencode.schoo
 
 ## How it works
 
-Students enroll on the website and get a student ID. They copy a prompt into their AI agent (OpenCode, Claude Code, Gemini CLI, Codex, or others). The agent reads the school's `llms.txt` file to discover the API, fetches the student's progress, and teaches lessons interactively.
+Students start in the browser. They visit the school website, learn what it teaches, and enroll. Then they move into their AI agent to dive in and start learning at their own pace. An interview captures their preferences, and the agent adapts its teaching style from there: beginners get thorough explanations, experts get concise details, hands-on learners jump straight into doing things.
 
-Each lesson has two representations: rich HTML on the website for humans, and prose markdown with `agentInstructions` served through the API for agents. The agent teaches the material conversationally, quizzes the student, and marks lessons complete. Progress syncs to the website in real time.
+Each lesson follows a teach-then-quiz flow. The agent covers the material conversationally, quizzes the student, and marks the lesson complete. Progress syncs to the website in real time. The school also supports exercises: open-ended projects where students apply what they've learned.
 
-## Project structure
+## Stack
 
-```
-school.config.ts          # School name, description, word lists, profile fields
-src/
-  content/
-    lessons/              # MDX lesson files
-    exercises/            # MDX exercise files
-  lib/
-    progress.ts           # KV read/write for student progress
-    quiz-instructions.ts  # Shared quiz boilerplate
-    mdx-to-prose.ts       # Strip HTML for API
-    student-id.ts         # ID generation from school.config word lists
-    school.ts             # SchoolConfig type definition
-  pages/
-    api/                  # REST endpoints (enroll, progress, profile, lessons, exercises)
-    llms.txt.ts           # Agent discovery file
-    lessons/[slug].astro  # Lesson page template
-    index.astro           # Homepage with enrollment
-  layouts/Base.astro      # Master layout with sidebar and progress tracking
-skill/
-  SKILL.md                # Scaffolding skill for creating a new school
-script/
-  dev, build, lint, deploy, test
-```
+- [Astro](https://astro.build) — static site framework with SSR
+- [Cloudflare Workers](https://workers.cloudflare.com) — edge hosting
+- [Cloudflare KV](https://developers.cloudflare.com/kv/) — student progress storage
+- [Tailwind CSS](https://tailwindcss.com) — styling
+- [MDX](https://mdxjs.com/) — lesson content format
 
-## Scripts
-
-| Script          | Purpose                            |
-| --------------- | ---------------------------------- |
-| `script/dev`    | Start the local development server |
-| `script/build`  | Build for production               |
-| `script/lint`   | Run the Biome linter               |
-| `script/test`   | Run tests with Vitest              |
-| `script/deploy` | Deploy to Cloudflare Workers       |
-
-## Deployment
-
-Set up GitHub Actions secrets (`CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`), then push to main. The deploy workflow builds and deploys automatically.
-
-For manual deployment: `script/deploy`
+See [skill/SKILL.md](skill/SKILL.md) for the full architecture and scaffolding workflow.
