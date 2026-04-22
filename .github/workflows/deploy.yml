@@ -7,6 +7,7 @@ on:
 
 jobs:
   deploy:
+    if: false # Enable automatic deploys by removing this line
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
