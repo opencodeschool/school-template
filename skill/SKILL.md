@@ -103,9 +103,9 @@ Good profile fields are:
 - Stable: the preference doesn't change lesson to lesson
 - Small cardinality: 3-5 options per field, not free text
 
-Two generic fields are built into the template (learningStyle and depthPreference). Subject-specific fields go in `school.config.ts` under `profileFields`.
+All interview questions are defined in `school.config.ts` under `profileFields`. The template ships with `learningStyle` and `depthPreference` as sensible defaults. The creator can keep, modify, or replace them with subject-specific fields.
 
-Update the interview lesson's `agentInstructions` in `src/content/lessons/01-interview.mdx` with the custom questions. Follow the format of the existing generic questions.
+Interview questions are automatically generated from `profileFields` at serve time, so there is no need to manually edit `01-interview.mdx`. The MDX contains boilerplate instructions and a `{interviewQuestions}` placeholder that is replaced with the questions from config.
 
 Commit: `feat: add interview lesson and profile fields`
 

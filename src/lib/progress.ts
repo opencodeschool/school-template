@@ -12,8 +12,6 @@ export interface CompletedLesson {
 }
 
 export interface StudentProfile {
-	learningStyle?: "concepts-first" | "hands-on" | "examples";
-	depthPreference?: "brief" | "some-context" | "all-details";
 	[key: string]: unknown;
 }
 

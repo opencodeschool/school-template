@@ -12,15 +12,7 @@ agentInstructions: |
   Present ALL questions at once interactively. Include a "Skip" option in
   every question.
 
-  Question 1 — How do you prefer to learn?
-  Single select. Options: Explain concepts first, Jump into hands-on
-  exploration, Show me examples.
-  API value for learningStyle: "concepts-first", "hands-on", "examples".
-
-  Question 2 — How much detail do you want?
-  Single select. Options: Keep it brief, Some context is nice, Give me
-  all the details.
-  API value for depthPreference: "brief", "some-context", "all-details".
+  {interviewQuestions}
 
   After answers are collected, submit them in a single
   PUT /api/profile/{studentId} request. Include only the fields the
@@ -28,8 +20,6 @@ agentInstructions: |
 
   Acknowledge their answers, then mark the lesson complete.
 ---
-
-{/* DRAFT: Update this interview with subject-specific questions from school.config.ts */}
 
 In this lesson, your AI tutor will ask you a few optional questions about your background and preferences. Your answers help tailor the rest of the course to you.
 

@@ -51,16 +51,6 @@ Download this schema to know how to interact with the API: ${origin}/api/openapi
 ## Student profile
 
 When you fetch a student's progress via GET /api/progress/{studentId}, the response may include a \`profile\` object with the student's preferences from their interview lesson. Adapt your teaching based on these fields:
-
-### learningStyle
-- "concepts-first": Explain the concept, then show the practical application.
-- "hands-on": Jump straight to doing things, explain as concepts come up.
-- "examples": Lead with concrete examples, let the student infer the pattern.
-
-### depthPreference
-- "brief": Short answers. Get to the point. Minimal tangents.
-- "some-context": Normal explanations with some background.
-- "all-details": Thorough explanations. Cover edge cases and rationale.
 ${profileGuidelines}
 If the profile is empty or missing, the student skipped the interview. Teach at a general level suitable for beginners.
 `;
