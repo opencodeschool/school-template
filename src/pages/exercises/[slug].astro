@@ -5,6 +5,7 @@
 export const prerender = true;
 
 import Base from "../../layouts/Base.astro";
+import AgentPrompt from "../../components/AgentPrompt.astro";
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -49,6 +50,8 @@ const next = currentIndex < allExercises.length - 1 ? allExercises[currentIndex 
   <article class="prose dark:prose-invert max-w-none">
     <Content />
   </article>
+
+  <AgentPrompt title={exercise.data.title} />
 
   <!-- Exercise action: combined mark-complete + next-exercise button -->
   <div id="exercise-action" class="mt-10 pt-6 border-t border-gray-200 dark:border-stone-800 hidden">
