@@ -497,18 +497,24 @@ export const GET: APIRoute = (context) => {
 				StudentProfile: {
 					type: "object",
 					description:
-						"Student preferences from the interview lesson. All fields are optional. Custom fields are defined in school.config.ts.",
-					properties: {
-						learningStyle: {
-							type: "string",
-							enum: ["concepts-first", "hands-on", "examples"],
-						},
-						depthPreference: {
-							type: "string",
-							enum: ["brief", "some-context", "all-details"],
-						},
-					},
-					additionalProperties: true,
+						"Student preferences from the interview lesson. All fields are optional and defined in school.config.ts.",
+					properties: Object.fromEntries(
+						Object.entries(config.profileFields).map(([fieldName, field]) => [
+							fieldName,
+							field.type === "multi"
+								? {
+										type: "array",
+										items: {
+											type: "string",
+											enum: field.options.map((o) => o.value),
+										},
+									}
+								: {
+										type: "string",
+										enum: field.options.map((o) => o.value),
+									},
+						]),
+					),
 				},
 				Progress: {
 					type: "object",

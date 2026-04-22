@@ -20,7 +20,8 @@ Everything school-specific lives in `school.config.ts` at the repo root. The inf
 - `src/lib/student-id.ts` reads adjective/noun word lists for ID generation
 - `src/pages/llms.txt.ts` reads school name, description, and profile adaptation guidelines
 - `src/pages/api/openapi.json.ts` reads school name for the API spec title
-- `src/pages/api/profile/[studentId].ts` validates built-in profile fields (learningStyle, depthPreference) and passes through custom fields defined in config
+- `src/pages/api/profile/[studentId].ts` validates all profile fields against options defined in config
+- `src/pages/api/lessons/[slug].ts` injects interview questions from config via the `{interviewQuestions}` placeholder
 
 The `SchoolConfig` type is defined in `src/lib/school.ts`.
 

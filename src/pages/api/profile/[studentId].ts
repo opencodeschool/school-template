@@ -1,5 +1,6 @@
 import { env } from "cloudflare:workers";
 import type { APIRoute } from "astro";
+import config from "../../../../school.config";
 import {
 	getProfile,
 	type StudentProfile,
@@ -47,9 +48,6 @@ export const GET: APIRoute = async ({ params }) => {
 	});
 };
 
-const VALID_LEARNING_STYLE = ["concepts-first", "hands-on", "examples"];
-const VALID_DEPTH_PREFERENCE = ["brief", "some-context", "all-details"];
-
 function validateProfile(body: Record<string, unknown>): {
 	profile: Partial<StudentProfile>;
 	errors: string[];
@@ -57,33 +55,35 @@ function validateProfile(body: Record<string, unknown>): {
 	const profile: Partial<StudentProfile> = {};
 	const errors: string[] = [];
 
-	if ("learningStyle" in body) {
-		if (VALID_LEARNING_STYLE.includes(body.learningStyle as string)) {
-			profile.learningStyle =
-				body.learningStyle as StudentProfile["learningStyle"];
-		} else {
-			errors.push(
-				`Invalid learningStyle: must be one of ${VALID_LEARNING_STYLE.join(", ")}`,
-			);
-		}
-	}
-
-	if ("depthPreference" in body) {
-		if (VALID_DEPTH_PREFERENCE.includes(body.depthPreference as string)) {
-			profile.depthPreference =
-				body.depthPreference as StudentProfile["depthPreference"];
-		} else {
-			errors.push(
-				`Invalid depthPreference: must be one of ${VALID_DEPTH_PREFERENCE.join(", ")}`,
-			);
-		}
-	}
-
-	// Accept any other fields from custom profileFields defined in school.config.ts.
-	// Custom field validation is left to the school creator.
 	for (const [key, value] of Object.entries(body)) {
-		if (key === "learningStyle" || key === "depthPreference") continue;
-		profile[key] = value as string | string[];
+		const field = config.profileFields[key];
+		if (!field) {
+			errors.push(`Unknown profile field: ${key}`);
+			continue;
+		}
+
+		const validValues = field.options.map((o) => o.value);
+
+		if (field.type === "multi") {
+			if (!Array.isArray(value)) {
+				errors.push(`${key}: expected an array for multi-select field`);
+				continue;
+			}
+			const invalid = value.filter((v) => !validValues.includes(v as string));
+			if (invalid.length > 0) {
+				errors.push(
+					`${key}: invalid values ${invalid.join(", ")}. Must be from: ${validValues.join(", ")}`,
+				);
+				continue;
+			}
+			profile[key] = value as string[];
+		} else {
+			if (!validValues.includes(value as string)) {
+				errors.push(`Invalid ${key}: must be one of ${validValues.join(", ")}`);
+				continue;
+			}
+			profile[key] = value as string;
+		}
 	}
 
 	return { profile, errors };

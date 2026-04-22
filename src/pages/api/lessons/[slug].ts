@@ -1,7 +1,26 @@
 import { getCollection } from "astro:content";
 import type { APIRoute } from "astro";
+import config from "../../../../school.config";
 import { mdxToProse } from "../../../lib/mdx-to-prose";
 import { QUIZ_INSTRUCTIONS } from "../../../lib/quiz-instructions";
+
+function buildInterviewQuestions(): string {
+	const entries = Object.entries(config.profileFields);
+	if (entries.length === 0) return "";
+
+	return entries
+		.map(([fieldName, field], i) => {
+			const num = i + 1;
+			const selectType =
+				field.type === "multi" ? "Multi select" : "Single select";
+			const optionLabels = field.options
+				.map((o) => (o.description ? `${o.label} (${o.description})` : o.label))
+				.join(", ");
+			const apiValues = field.options.map((o) => `"${o.value}"`).join(", ");
+			return `Question ${num} — ${field.question}\n  ${selectType}. Options: ${optionLabels}.\n  API value for ${fieldName}: ${apiValues}.`;
+		})
+		.join("\n\n  ");
+}
 
 const corsHeaders = {
 	"Access-Control-Allow-Origin": "*",
@@ -32,7 +51,9 @@ export const GET: APIRoute = async ({ params, request }) => {
 	if (lesson.data.quiz) {
 		rawInstructions += `\n\n${QUIZ_INSTRUCTIONS}`;
 	}
-	const agentInstructions = rawInstructions.replaceAll("{origin}", origin);
+	const agentInstructions = rawInstructions
+		.replaceAll("{origin}", origin)
+		.replaceAll("{interviewQuestions}", buildInterviewQuestions());
 
 	const result = {
 		order: lesson.data.order,
