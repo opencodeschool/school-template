@@ -10,7 +10,7 @@ Copy and paste this prompt into your agentic coding tool of choice, like OpenCod
 
 > Let's create a new school!
 >
-> Fetch https://raw.githubusercontent.com/opencodeschool/school-template/main/skill/SKILL.md for instructions.
+> Fetch https://github.com/opencodeschool/school-template/blob/main/skill/SKILL.md for instructions.
 
 The agent will walk you through the full process: cloning the template, defining your school's subject, designing the interview, planning lessons, and authoring content together.
 
