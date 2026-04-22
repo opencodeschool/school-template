@@ -43,6 +43,8 @@ cd {name}
 npm install
 ```
 
+Read `AGENTS.md` in the new repo to understand the codebase structure, stack, and conventions.
+
 Create a KV namespace for student data:
 
 ```

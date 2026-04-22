@@ -6,28 +6,15 @@ Based on the architecture of [OpenCode School](https://opencode.school).
 
 ## Quick start
 
-Clone the template, install dependencies, and create a KV namespace:
+Copy and paste this prompt into your agentic coding tool of choice, like OpenCode, Claude Code, Codex, or Gemini CLI:
 
-```
-gh repo create my-school --template opencodeschool/school-template --clone
-cd my-school
-npm install
-npx wrangler kv namespace create PROGRESS
-```
+> Let's create a new school!
+>
+> Fetch https://raw.githubusercontent.com/opencodeschool/school-template/main/skill/SKILL.md for instructions.
 
-Update `wrangler.jsonc` with the KV namespace ID, then customize `school.config.ts` with your school's name, description, word lists, and profile fields.
+The agent will walk you through the full process: cloning the template, defining your school's subject, designing the interview, planning lessons, and authoring content together.
 
-Run the dev server:
-
-```
-script/dev
-```
-
-## Using the skill
-
-The `skill/` directory contains an OpenCode skill that walks you through the full scaffolding process: defining the school, designing the interview, planning lessons, and authoring content collaboratively with your AI agent.
-
-Install the skill in your OpenCode config, then tell it what you want to build.
+Not using a coding agent yet? Check out [OpenCode School](https://opencode.school) to learn OpenCode, a free, open-source AI coding agent that works with models from Anthropic, OpenAI, Gemini, and others.
 
 ## How it works
 
@@ -56,20 +43,20 @@ src/
     index.astro           # Homepage with enrollment
   layouts/Base.astro      # Master layout with sidebar and progress tracking
 skill/
-  SKILL.md                # Scaffolding skill for OpenCode
+  SKILL.md                # Scaffolding skill for creating a new school
 script/
   dev, build, lint, deploy, test
 ```
 
 ## Scripts
 
-| Script         | Purpose                              |
-| -------------- | ------------------------------------ |
-| `script/dev`   | Start the local development server   |
-| `script/build` | Build for production                 |
-| `script/lint`  | Run the Biome linter                 |
-| `script/test`  | Run tests with Vitest                |
-| `script/deploy`| Deploy to Cloudflare Workers         |
+| Script          | Purpose                            |
+| --------------- | ---------------------------------- |
+| `script/dev`    | Start the local development server |
+| `script/build`  | Build for production               |
+| `script/lint`   | Run the Biome linter               |
+| `script/test`   | Run tests with Vitest              |
+| `script/deploy` | Deploy to Cloudflare Workers       |
 
 ## Deployment
 
