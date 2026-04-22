@@ -5,6 +5,7 @@
 export const prerender = true;
 
 import Base from "../../layouts/Base.astro";
+import AgentPrompt from "../../components/AgentPrompt.astro";
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -47,6 +48,8 @@ const next = currentIndex < allLessons.length - 1 ? allLessons[currentIndex + 1]
   <article class="prose dark:prose-invert max-w-none">
     <Content />
   </article>
+
+  <AgentPrompt title={lesson.data.title} />
 
   <!-- Agent-only notice: shown for lessons that can only be completed in OpenCode -->
   {lesson.data.agentOnly && (
